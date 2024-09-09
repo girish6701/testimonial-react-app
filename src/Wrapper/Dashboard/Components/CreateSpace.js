@@ -6,7 +6,7 @@ import ThankYouPreview from "./ThankYouPreview";
 // import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../../firebaseConfig";
 import { arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import Loader from "../../../GenericComponents/Loader";
+import Loader from "../../../util_components/Loader";
 import { v4 as uuidv4 } from "uuid";
 
 function CreateSpace({ handleCreateSpaceChange, getSpacesData }) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import StarRatings from "../../../GenericComponents/StarRatings";
+import StarRatings from "../../../util_components/StarRatings";
 
 function Review({ content, likeReviews }) {
   //   const [isLiked, setIsLiked] = useState(content?.isLiked);

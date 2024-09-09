@@ -13,7 +13,7 @@ function ThankYouForm({ appreciateData, handleAppreciateDataState }) {
       <div className="flex flex-col gap-6 mt-12">
         <div className="flex flex-col gap-2">
           <label for="appreciateTitle" className="text-gray-700 font-medium">
-            Thank you title
+            Thank you title *
           </label>
           <input
             className="border rounded-lg px-4 py-3 border-gray-300"
@@ -26,7 +26,7 @@ function ThankYouForm({ appreciateData, handleAppreciateDataState }) {
         </div>
         <div className="flex flex-col gap-2">
           <label for="appreciateMessage" className="text-gray-700 font-medium">
-            Thank you message
+            Thank you message *
           </label>
           <textarea
             className="border rounded-lg px-4 py-3 border-gray-300"

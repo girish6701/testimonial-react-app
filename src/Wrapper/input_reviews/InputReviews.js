@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Header from "../../GenericComponents/Header";
+import Header from "../../util_components/Header";
 import { db } from "../../firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
-import Loader from "../../GenericComponents/Loader";
-import InputPopup from "./Components/InputPopup";
+import Loader from "../../util_components/Loader";
+import InputPopup from "./components/InputPopup";
+import Popup from "../../util_components/Popup";
 
 function InputReviews() {
   const { id, name } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [spaceData, setSpaceData] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [thankyouPopup, setThankyouPopup] = useState(false);
 
   useEffect(() => {
     getSpacesData();
@@ -97,8 +99,24 @@ function InputReviews() {
               spaceData={spaceData}
               showPopup={showPopup}
               setShowPopup={setShowPopup}
+              setThankyouPopup={setThankyouPopup}
             />
           )}
+
+          <Popup isActive={thankyouPopup} setIsActive={setThankyouPopup}>
+            <div className="flex flex-col gap-6">
+              <img
+                src="https://media1.giphy.com/media/g9582DNuQppxC/giphy.gif?cid=ecf05e47ibtkj6mhht2m6gpzy157hwtxvlxlzqlijwrfqh8i&rid=giphy.gif"
+                className="rounded-lg"
+              />
+              <div className="font-semibold h6 text-center">
+                {spaceData["appreciateForm"]["appreciateTitle"]}
+              </div>
+              <div className="text-center">
+                {spaceData["appreciateForm"]["appreciateMessage"]}
+              </div>
+            </div>
+          </Popup>
         </div>
       ) : (
         "Data Not Available. Please check the name and the id"

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../firebaseConfig";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import RingLoader from "../../GenericComponents/RingLoader";
-import StarRatings from "../../GenericComponents/StarRatings";
+import RingLoader from "../../util_components/RingLoader";
+import StarRatings from "../../util_components/StarRatings";
 
 function ShowTestimonials() {
   const { id, userId } = useParams();

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Loader from "../../GenericComponents/Loader";
+import Loader from "../../util_components/Loader";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { signinWithGoogle } from "../../GenericComponents/GenericFunctions";
-import Header from "../../GenericComponents/Header";
+import { signinWithGoogle } from "../../util_components/UtilFunctions";
+import Header from "../../util_components/Header";
 import { Link } from "react-router-dom";
 
 function Login() {

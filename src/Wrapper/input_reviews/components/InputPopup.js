@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Popup from "../../../GenericComponents/Popup";
+import Popup from "../../../util_components/Popup";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
-import StarRatings from "../../../GenericComponents/StarRatings";
-import Loader from "../../../GenericComponents/Loader";
+import StarRatings from "../../../util_components/StarRatings";
+import Loader from "../../../util_components/Loader";
 
-function InputPopup({ spaceData, showPopup, setShowPopup }) {
+function InputPopup({ spaceData, showPopup, setShowPopup, setThankyouPopup }) {
   const [isLoading, setIsLoading] = useState(false);
   const [reviewData, setReviewData] = useState({
     id: uuidv4(),
@@ -52,6 +52,7 @@ function InputPopup({ spaceData, showPopup, setShowPopup }) {
 
     setShowPopup(false);
     setIsLoading(false);
+    setThankyouPopup(true);
   }
 
   return (

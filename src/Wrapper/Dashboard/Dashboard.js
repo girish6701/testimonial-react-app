@@ -1,9 +1,10 @@
+/* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from "react";
-import Header from "../../GenericComponents/Header";
-import CreateSpace from "./Components/CreateSpace";
+import Header from "../../util_components/Header";
+import CreateSpace from "./components/CreateSpace";
 import { db } from "../../firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
-import Loader from "../../GenericComponents/Loader";
+import Loader from "../../util_components/Loader";
 import { useNavigate } from "react-router-dom";
 
 function Dashboard() {

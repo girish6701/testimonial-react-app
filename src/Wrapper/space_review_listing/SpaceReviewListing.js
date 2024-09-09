@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { db } from "../../firebaseConfig";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import Header from "../../GenericComponents/Header";
-import Loader from "../../GenericComponents/Loader";
-import Review from "./Components/Review";
+import Header from "../../util_components/Header";
+import Loader from "../../util_components/Loader";
+import Review from "./components/Review";
 
 function SpaceReviewListing() {
   const { id } = useParams();

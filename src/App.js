@@ -1,11 +1,11 @@
-import { useState } from "react";
-import Login from "./Wrapper/Login/Login";
-import Signup from "./Wrapper/Signup/Signup";
+import React from "react";
+import Signup from "./wrapper/signup/Signup";
+import Login from "./wrapper/login/Login";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Dashboard from "./Wrapper/Dashboard/Dashboard";
-import InputReviews from "./Wrapper/InputReviews/InputReviews";
-import SpaceReviewListing from "./Wrapper/SpaceReviewListing/SpaceReviewListing";
-import ShowTestimonials from "./Wrapper/ShowTestimonials/ShowTestimonials";
+import Dashboard from "./wrapper/dashboard/Dashboard";
+import InputReviews from "./wrapper/input_reviews/InputReviews";
+import SpaceReviewListing from "./wrapper/space_review_listing/SpaceReviewListing";
+import ShowTestimonials from "./wrapper/show_testimonials/ShowTestimonials";
 
 function App() {
   return (

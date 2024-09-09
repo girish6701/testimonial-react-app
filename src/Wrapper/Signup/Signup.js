@@ -4,9 +4,9 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import Loader from "../../GenericComponents/Loader";
-import { signinWithGoogle } from "../../GenericComponents/GenericFunctions";
-import Header from "../../GenericComponents/Header";
+import Loader from "../../util_components/Loader";
+import { signinWithGoogle } from "../../util_components/UtilFunctions";
+import Header from "../../util_components/Header";
 import { Link } from "react-router-dom";
 
 function Signup() {

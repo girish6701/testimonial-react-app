@@ -6,6 +6,7 @@ import { doc, getDoc } from "firebase/firestore";
 import Loader from "../../util_components/Loader";
 import InputPopup from "./components/InputPopup";
 import Popup from "../../util_components/Popup";
+import { useAuth } from "../../util_components/AuthContext";
 
 function InputReviews() {
   const { id, name } = useParams();
@@ -14,13 +15,15 @@ function InputReviews() {
   const [showPopup, setShowPopup] = useState(false);
   const [thankyouPopup, setThankyouPopup] = useState(false);
 
+  const { user } = useAuth();
+
   useEffect(() => {
     getSpacesData();
   }, []);
 
   async function getSpacesData() {
     setIsLoading(true);
-    const docRef = doc(db, "users_space", "1234");
+    const docRef = doc(db, "users_space", user["uid"]);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {

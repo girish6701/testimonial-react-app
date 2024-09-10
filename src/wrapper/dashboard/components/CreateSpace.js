@@ -8,6 +8,7 @@ import { db } from "../../../firebaseConfig";
 import { arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import Loader from "../../../util_components/Loader";
 import { v4 as uuidv4 } from "uuid";
+import { useAuth } from "../../../util_components/AuthContext";
 
 function CreateSpace({ handleCreateSpaceChange, getSpacesData }) {
   const [selectedTestimonialTab, setSelectedTestimonialTab] = useState("basic");
@@ -27,6 +28,8 @@ function CreateSpace({ handleCreateSpaceChange, getSpacesData }) {
       "Thank you so much for your shoutout! It means a ton for us! 🙏",
   });
   const [isLoading, setIsLoading] = useState(false);
+
+  const { user } = useAuth();
 
   function handleSpaceDataState(dataKey, dataVal) {
     setSpaceData((prevData) => {
@@ -69,7 +72,7 @@ function CreateSpace({ handleCreateSpaceChange, getSpacesData }) {
     }
 
     setIsLoading(true);
-    const docRef = doc(db, "users_space", "1234");
+    const docRef = doc(db, "users_space", user["uid"]);
     const docSnap = await getDoc(docRef);
 
     try {
@@ -84,8 +87,8 @@ function CreateSpace({ handleCreateSpaceChange, getSpacesData }) {
         });
       } else {
         await setDoc(docRef, {
-          name: "",
-          email: "",
+          name: user["displayName"],
+          email: user["email"],
           spaces: [
             {
               spaceID: uuidv4(),

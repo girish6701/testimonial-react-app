@@ -5,11 +5,17 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import Header from "../../util_components/Header";
 import Loader from "../../util_components/Loader";
 import Review from "./components/Review";
+import { useAuth } from "../../util_components/AuthContext";
 
 function SpaceReviewListing() {
   const { id } = useParams();
   const [spaceData, setSpaceData] = useState(null);
+  const [allReviewsData, setAllReviewsData] = useState([]);
+  const [searchedReviews, setSearchedReviews] = useState([]);
+  const [searchVal, setSearchVal] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+
+  const { user } = useAuth();
 
   useEffect(() => {
     getSpacesData();
@@ -17,7 +23,7 @@ function SpaceReviewListing() {
 
   async function getSpacesData() {
     setIsLoading(true);
-    const docRef = doc(db, "users_space", "1234");
+    const docRef = doc(db, "users_space", user["uid"]);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
@@ -26,12 +32,14 @@ function SpaceReviewListing() {
       console.log(selectedData);
 
       setSpaceData(selectedData);
+      setAllReviewsData(selectedData?.reviews);
+      setSearchedReviews(selectedData?.reviews);
     }
     setIsLoading(false);
   }
 
   async function likeReviews(currentReviewID) {
-    const docRef = doc(db, "users_space", "1234");
+    const docRef = doc(db, "users_space", user["uid"]);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
@@ -54,6 +62,24 @@ function SpaceReviewListing() {
       getSpacesData();
     }
   }
+
+  useEffect(() => {
+    if (!spaceData) return;
+
+    if (searchVal === "") {
+      setSearchedReviews(allReviewsData);
+      return;
+    }
+
+    let filteredReviews = allReviewsData?.filter(
+      (review) =>
+        review["reviewerName"]
+          .toLowerCase()
+          .includes(searchVal.toLowerCase()) ||
+        review["reviewerEmail"].toLowerCase().includes(searchVal.toLowerCase())
+    );
+    setSearchedReviews(filteredReviews);
+  }, [searchVal]);
 
   return (
     <Header>
@@ -81,9 +107,33 @@ function SpaceReviewListing() {
             </div>
           </div>
 
-          {spaceData?.reviews?.length > 0 ? (
+          <div className="flex gap-4 items-center border w-fit border-gray-400 py-3 px-4 rounded-xl">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              ></path>
+            </svg>
+            <input
+              type="text"
+              placeholder="Search by name or email"
+              value={searchVal}
+              onChange={(e) => setSearchVal(e.target.value)}
+              className="border-none bg-transparent"
+            />
+          </div>
+
+          {searchedReviews?.length > 0 ? (
             <div className="grid grid-cols-3 gap-12">
-              {spaceData?.reviews?.map((elem) => (
+              {searchedReviews?.map((elem) => (
                 <Review content={elem} likeReviews={likeReviews} />
               ))}
             </div>

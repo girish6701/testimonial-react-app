@@ -5,6 +5,7 @@ import { db } from "../../../firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
 import StarRatings from "../../../util_components/StarRatings";
 import Loader from "../../../util_components/Loader";
+import { useAuth } from "../../../util_components/AuthContext";
 
 function InputPopup({ spaceData, showPopup, setShowPopup, setThankyouPopup }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -17,6 +18,8 @@ function InputPopup({ spaceData, showPopup, setShowPopup, setThankyouPopup }) {
     isDisabled: false,
     ratings: 5,
   });
+
+  const { user } = useAuth();
 
   function handleRatingsChange(index) {
     setReviewData((prevData) => {
@@ -32,7 +35,7 @@ function InputPopup({ spaceData, showPopup, setShowPopup, setThankyouPopup }) {
 
   async function submitReview() {
     setIsLoading(true);
-    const docRef = doc(db, "users_space", "1234");
+    const docRef = doc(db, "users_space", user["uid"]);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {

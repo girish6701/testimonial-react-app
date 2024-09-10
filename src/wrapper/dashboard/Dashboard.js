@@ -6,11 +6,14 @@ import { db } from "../../firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import Loader from "../../util_components/Loader";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../util_components/AuthContext";
 
 function Dashboard() {
   const [showCreateSpace, setShowCreateSpace] = useState(false);
   const [spacesData, setSpacesData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const { user } = useAuth();
 
   const navigate = useNavigate();
 
@@ -24,7 +27,7 @@ function Dashboard() {
 
   async function getSpacesData() {
     setIsLoading(true);
-    const docRef = doc(db, "users_space", "1234");
+    const docRef = doc(db, "users_space", user["uid"]);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
@@ -41,7 +44,10 @@ function Dashboard() {
   return (
     <>
       {showCreateSpace ? (
-        <CreateSpace getSpacesData={getSpacesData} handleCreateSpaceChange={handleCreateSpaceChange} />
+        <CreateSpace
+          getSpacesData={getSpacesData}
+          handleCreateSpaceChange={handleCreateSpaceChange}
+        />
       ) : (
         <Header>
           <div className="flex flex-col gap-40 p1">

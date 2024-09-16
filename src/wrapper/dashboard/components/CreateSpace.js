@@ -9,8 +9,13 @@ import { arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import Loader from "../../../util_components/Loader";
 import { v4 as uuidv4 } from "uuid";
 import { useAuth } from "../../../util_components/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-function CreateSpace({ handleCreateSpaceChange, getSpacesData }) {
+function CreateSpace({
+  handleCreateSpaceChange,
+  getSpacesData,
+  editSpaceData,
+}) {
   const [selectedTestimonialTab, setSelectedTestimonialTab] = useState("basic");
   const [spaceData, setSpaceData] = useState({
     spaceName: "",
@@ -30,6 +35,15 @@ function CreateSpace({ handleCreateSpaceChange, getSpacesData }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const { user } = useAuth();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!!editSpaceData) {
+      setAppreciateData(editSpaceData?.appreciateForm);
+      setSpaceData(editSpaceData?.testimonialForm);
+    }
+  }, [editSpaceData]);
 
   function handleSpaceDataState(dataKey, dataVal) {
     setSpaceData((prevData) => {
@@ -77,14 +91,27 @@ function CreateSpace({ handleCreateSpaceChange, getSpacesData }) {
 
     try {
       if (docSnap.exists()) {
-        await updateDoc(docRef, {
-          spaces: arrayUnion({
-            spaceID: uuidv4(),
-            testimonialForm: spaceData,
-            appreciateForm: appreciateData,
-            reviews: [],
-          }),
-        });
+        if (!!editSpaceData) {
+          let allSpaces = docSnap.data().spaces;
+          allSpaces?.forEach((element) => {
+            if (element["spaceID"] == editSpaceData["spaceID"]) {
+              element["testimonialForm"] = spaceData;
+              element["appreciateForm"] = appreciateData;
+            }
+          });
+          await updateDoc(docRef, {
+            spaces: allSpaces,
+          });
+        } else {
+          await updateDoc(docRef, {
+            spaces: arrayUnion({
+              spaceID: uuidv4(),
+              testimonialForm: spaceData,
+              appreciateForm: appreciateData,
+              reviews: [],
+            }),
+          });
+        }
       } else {
         await setDoc(docRef, {
           name: user["displayName"],
@@ -101,6 +128,7 @@ function CreateSpace({ handleCreateSpaceChange, getSpacesData }) {
       }
       alert("Space create successfully :)");
       handleCreateSpaceChange(false);
+      navigate("/dashboard");
       getSpacesData();
     } catch (e) {
       alert(e);
@@ -234,6 +262,7 @@ function CreateSpace({ handleCreateSpaceChange, getSpacesData }) {
             <div className="h-[1px] w-1/3 mt-8 m-auto bg-gray-300"></div>
             {selectedTestimonialTab === "basic" && (
               <TestimonialForm
+                editSpaceData={editSpaceData}
                 spaceData={spaceData}
                 handleSpaceDataState={handleSpaceDataState}
                 submitSpaceFormData={submitSpaceFormData}

@@ -12,8 +12,7 @@ export const publicRoutes = [
 ];
 
 export const privateRoutes = [
-  { path: "/dashboard", component: <Dashboard /> },
-  { path: "/:id/:name", component: <InputReviews /> },
+  { path: "/dashboard/:id?", component: <Dashboard /> },
   { path: "/spaces/:id", component: <SpaceReviewListing /> },
   { path: "/show-testimonials/:userId/:id", component: <ShowTestimonials /> },
 ];

@@ -37,17 +37,16 @@ function Login() {
       loginDetails["password"]
     )
       .then((userCredential) => {
-        setIsLoading(false);
         // Signed In
         const user = userCredential.user;
         console.log(user);
       })
       .catch((error) => {
-        setIsLoading(false);
         const errorCode = error.code;
         const errorMessage = error.message;
         alert(errorMessage);
       });
+    setIsLoading(false);
   }
 
   return (

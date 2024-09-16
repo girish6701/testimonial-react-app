@@ -5,13 +5,16 @@ import CreateSpace from "./components/CreateSpace";
 import { db } from "../../firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import Loader from "../../util_components/Loader";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../util_components/AuthContext";
 
 function Dashboard() {
-  const [showCreateSpace, setShowCreateSpace] = useState(false);
+  const { id } = useParams();
+
+  const [showCreateSpace, setShowCreateSpace] = useState(id ? true : false);
   const [spacesData, setSpacesData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentEditSpace, setCurrentEditSpace] = useState(null);
 
   const { user } = useAuth();
 
@@ -31,8 +34,18 @@ function Dashboard() {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
+      let allSpaces = docSnap.data().spaces;
+      if (!!id) {
+        let editSpace = allSpaces?.find((space) => space["spaceID"] == id);
+        if (!editSpace) {
+          alert("ID is wrong");
+          navigate("/dashboard");
+          handleCreateSpaceChange(false);
+        } else {
+          setCurrentEditSpace(editSpace);
+        }
+      }
       setSpacesData(docSnap.data().spaces);
-      console.log("Document data:", docSnap.data());
     }
     setIsLoading(false);
   }
@@ -43,10 +56,13 @@ function Dashboard() {
 
   return (
     <>
-      {showCreateSpace ? (
+      {isLoading ? (
+        <Loader />
+      ) : showCreateSpace ? (
         <CreateSpace
           getSpacesData={getSpacesData}
           handleCreateSpaceChange={handleCreateSpaceChange}
+          editSpaceData={currentEditSpace}
         />
       ) : (
         <Header>
@@ -60,10 +76,7 @@ function Dashboard() {
                 + Create a new space
               </button>
             </div>
-            {isLoading ? (
-              <Loader />
-            ) : (
-              spacesData &&
+            {spacesData &&
               (spacesData.length === 0 ? (
                 <div className="flex flex-col items-center justify-center gap-10 text-gray-400 h6">
                   <img
@@ -96,8 +109,7 @@ function Dashboard() {
                     </div>
                   ))}
                 </div>
-              ))
-            )}
+              ))}
           </div>
         </Header>
       )}

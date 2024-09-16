@@ -4,6 +4,7 @@ function TestimonialForm({
   spaceData,
   handleSpaceDataState,
   submitSpaceFormData,
+  editSpaceData,
 }) {
   function handleSpaceDataChange(e) {
     handleSpaceDataState(e.target.name, e.target.value);
@@ -35,10 +36,12 @@ function TestimonialForm({
   return (
     <>
       <div className="text-center px-2 mt-6">
-        <p className="h1 font-semibold">Create a new Space</p>
+        <p className="h1 font-semibold">
+          {!!editSpaceData ? "Update Space" : "Create a new Space"}
+        </p>
         <p className="mt-6 h6 text-gray-600">
-          After the Space is created, it will generate a dedicated page for
-          collecting testimonials
+          {!editSpaceData &&
+            "After the Space is created, it will generate a dedicated page for collecting testimonials"}
         </p>
       </div>
       <div className="flex flex-col gap-6 mt-12">
@@ -142,7 +145,7 @@ function TestimonialForm({
           className="bg-[#567aad] hover:bg-[#4571b0] py-3 text-white rounded-lg mt-4"
           onClick={submitSpaceFormData}
         >
-          Create New Space
+          {!!editSpaceData ? "Update Space" : "Create New Space"}
         </button>
       </div>
     </>

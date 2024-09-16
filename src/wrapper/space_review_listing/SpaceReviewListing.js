@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { db } from "../../firebaseConfig";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import Header from "../../util_components/Header";
@@ -16,6 +16,8 @@ function SpaceReviewListing() {
   const [isLoading, setIsLoading] = useState(true);
 
   const { user } = useAuth();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getSpacesData();
@@ -87,16 +89,24 @@ function SpaceReviewListing() {
         <Loader />
       ) : !!spaceData ? (
         <div className="p1 flex flex-col gap-20">
-          <div>
-            <p className="h1 font-semibold">
-              {spaceData["testimonialForm"]["spaceName"]}
-            </p>
-            <Link
-              className="underline text-gray-500"
-              to={`/${spaceData["spaceID"]}/${spaceData["testimonialForm"]["spaceName"]}`}
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="h1 font-semibold">
+                {spaceData["testimonialForm"]["spaceName"]}
+              </p>
+              <Link
+                className="underline text-gray-500"
+                to={`/${spaceData["spaceID"]}/${spaceData["testimonialForm"]["spaceName"]}`}
+              >
+                Space Public URL
+              </Link>
+            </div>
+            <div
+              className="cursor-pointer text-white border rounded-full py-3 px-8 bg-[#567aad] hover:bg-[#4571b0]"
+              onClick={() => navigate(`/dashboard/${id}`)}
             >
-              Space Public URL
-            </Link>
+              Edit Space
+            </div>
           </div>
           <div>
             <div

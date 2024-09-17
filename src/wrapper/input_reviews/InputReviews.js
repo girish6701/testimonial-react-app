@@ -23,11 +23,11 @@ function InputReviews() {
 
   async function getSpacesData() {
     setIsLoading(true);
-    const docRef = doc(db, "users_space", user["uid"]);
-    const docSnap = await getDoc(docRef);
+    const spaceRef = doc(db, "spaces", "data");
+    const spaceSnap = await getDoc(spaceRef);
 
-    if (docSnap.exists()) {
-      let allSpacesData = docSnap.data().spaces;
+    if (spaceSnap.exists()) {
+      let allSpacesData = spaceSnap.data().allSpacesData;
       let selectedData = allSpacesData?.find(
         (space) =>
           space["spaceID"] == id &&

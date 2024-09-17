@@ -25,11 +25,12 @@ function SpaceReviewListing() {
 
   async function getSpacesData() {
     setIsLoading(true);
-    const docRef = doc(db, "users_space", user["uid"]);
-    const docSnap = await getDoc(docRef);
+    const spaceRef = doc(db, "spaces", "data");
+    const spaceSnap = await getDoc(spaceRef);
 
-    if (docSnap.exists()) {
-      let allSpacesData = docSnap.data().spaces;
+    if (spaceSnap.exists()) {
+      let allSpacesData = spaceSnap.data().allSpacesData;
+
       let selectedData = allSpacesData?.find((space) => space["spaceID"] == id);
       console.log(selectedData);
 
@@ -41,11 +42,11 @@ function SpaceReviewListing() {
   }
 
   async function likeReviews(currentReviewID) {
-    const docRef = doc(db, "users_space", user["uid"]);
-    const docSnap = await getDoc(docRef);
+    const spaceRef = doc(db, "spaces", "data");
+    const spaceSnap = await getDoc(spaceRef);
 
-    if (docSnap.exists()) {
-      let currentValue = docSnap.data()["spaces"];
+    if (spaceSnap.exists()) {
+      let currentValue = spaceSnap.data().allSpacesData;
       currentValue.forEach((space) => {
         if (space["spaceID"] === spaceData["spaceID"]) {
           space["reviews"].forEach((review) => {
@@ -57,8 +58,8 @@ function SpaceReviewListing() {
       });
       console.log(currentValue);
 
-      await updateDoc(docRef, {
-        spaces: currentValue,
+      await updateDoc(spaceRef, {
+        allSpacesData: currentValue,
       });
 
       getSpacesData();

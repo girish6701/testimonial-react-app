@@ -31,10 +31,15 @@ function Dashboard() {
   async function getSpacesData() {
     setIsLoading(true);
     const docRef = doc(db, "users_space", user["uid"]);
+    const spaceRef = doc(db, "spaces", "data");
     const docSnap = await getDoc(docRef);
+    const spaceSnap = await getDoc(spaceRef);
 
     if (docSnap.exists()) {
-      let allSpaces = docSnap.data().spaces;
+      let allSpacesIds = docSnap.data().spaces;
+      let allSpaces = spaceSnap.data().allSpacesData?.filter((elem) => {
+        return allSpacesIds.includes(elem["spaceID"]);
+      });
       if (!!id) {
         let editSpace = allSpaces?.find((space) => space["spaceID"] == id);
         if (!editSpace) {
@@ -45,7 +50,7 @@ function Dashboard() {
           setCurrentEditSpace(editSpace);
         }
       }
-      setSpacesData(docSnap.data().spaces);
+      setSpacesData(allSpaces);
     }
     setIsLoading(false);
   }

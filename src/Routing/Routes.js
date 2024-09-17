@@ -1,5 +1,4 @@
 import Dashboard from "../wrapper/dashboard/Dashboard";
-import InputReviews from "../wrapper/input_reviews/InputReviews";
 import Login from "../wrapper/login/Login";
 import ShowTestimonials from "../wrapper/show_testimonials/ShowTestimonials";
 import Signup from "../wrapper/signup/Signup";
@@ -14,5 +13,5 @@ export const publicRoutes = [
 export const privateRoutes = [
   { path: "/dashboard/:id?", component: <Dashboard /> },
   { path: "/spaces/:id", component: <SpaceReviewListing /> },
-  { path: "/show-testimonials/:userId/:id", component: <ShowTestimonials /> },
+  { path: "/show-testimonials/:id", component: <ShowTestimonials /> },
 ];

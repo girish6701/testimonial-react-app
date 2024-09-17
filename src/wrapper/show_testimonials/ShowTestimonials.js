@@ -6,7 +6,7 @@ import RingLoader from "../../util_components/RingLoader";
 import StarRatings from "../../util_components/StarRatings";
 
 function ShowTestimonials() {
-  const { id, userId } = useParams();
+  const { id } = useParams();
   const [likedReviewsData, setLikedReviewsData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -16,11 +16,11 @@ function ShowTestimonials() {
 
   async function getSpacesData() {
     setIsLoading(true);
-    const docRef = doc(db, "users_space", userId);
-    const docSnap = await getDoc(docRef);
+    const spaceRef = doc(db, "spaces", "data");
+    const spaceSnap = await getDoc(spaceRef);
 
-    if (docSnap.exists()) {
-      let allSpacesData = docSnap.data().spaces;
+    if (spaceSnap.exists()) {
+      let allSpacesData = spaceSnap.data().allSpacesData;
       let selectedData = allSpacesData?.find((space) => space["spaceID"] == id);
       console.log(selectedData);
 

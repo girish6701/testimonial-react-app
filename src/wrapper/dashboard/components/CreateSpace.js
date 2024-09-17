@@ -87,25 +87,33 @@ function CreateSpace({
 
     setIsLoading(true);
     const docRef = doc(db, "users_space", user["uid"]);
+    const spaceRef = doc(db, "spaces", "data");
     const docSnap = await getDoc(docRef);
+    const spaceSnap = await getDoc(spaceRef);
+    let currentID = uuidv4();
 
     try {
       if (docSnap.exists()) {
         if (!!editSpaceData) {
-          let allSpaces = docSnap.data().spaces;
+          let allSpaces = spaceSnap.data().allSpacesData;
           allSpaces?.forEach((element) => {
             if (element["spaceID"] == editSpaceData["spaceID"]) {
               element["testimonialForm"] = spaceData;
               element["appreciateForm"] = appreciateData;
             }
           });
-          await updateDoc(docRef, {
-            spaces: allSpaces,
+
+          await updateDoc(spaceRef, {
+            allSpacesData: allSpaces,
           });
         } else {
           await updateDoc(docRef, {
-            spaces: arrayUnion({
-              spaceID: uuidv4(),
+            spaces: arrayUnion(currentID),
+          });
+
+          await updateDoc(spaceRef, {
+            allSpacesData: arrayUnion({
+              spaceID: currentID,
               testimonialForm: spaceData,
               appreciateForm: appreciateData,
               reviews: [],
@@ -116,9 +124,13 @@ function CreateSpace({
         await setDoc(docRef, {
           name: user["displayName"],
           email: user["email"],
-          spaces: [
+          spaces: [currentID],
+        });
+
+        await setDoc(spaceRef, {
+          allSpacesData: [
             {
-              spaceID: uuidv4(),
+              spaceID: currentID,
               testimonialForm: spaceData,
               appreciateForm: appreciateData,
               reviews: [],

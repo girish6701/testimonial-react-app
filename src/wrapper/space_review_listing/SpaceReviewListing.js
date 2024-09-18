@@ -97,7 +97,11 @@ function SpaceReviewListing() {
               </p>
               <Link
                 className="underline text-gray-500"
-                to={`/${spaceData["spaceID"]}/${spaceData["testimonialForm"]["spaceName"]}`}
+                to={`/${spaceData["spaceID"]}/${spaceData["testimonialForm"][
+                  "spaceName"
+                ]
+                  ?.split(" ")
+                  ?.join("-")}`}
               >
                 Space Public URL
               </Link>
@@ -153,7 +157,9 @@ function SpaceReviewListing() {
           )}
         </div>
       ) : (
-        <div>Data Not Available. Please check the id</div>
+        <div className="h4 text-center">
+          Data Not Available. Please check the id
+        </div>
       )}
     </Header>
   );

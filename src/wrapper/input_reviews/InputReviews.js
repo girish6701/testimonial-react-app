@@ -32,7 +32,7 @@ function InputReviews() {
         (space) =>
           space["spaceID"] == id &&
           space["testimonialForm"]["spaceName"].toLowerCase() ===
-            name.toLowerCase()
+            name?.split("-")?.join(" ")?.toLowerCase()
       );
       console.log(selectedData);
 
@@ -42,7 +42,7 @@ function InputReviews() {
   }
 
   return (
-    <Header>
+    <Header showRightMenu={false}>
       {isLoading ? (
         <Loader />
       ) : !!spaceData ? (
@@ -122,7 +122,9 @@ function InputReviews() {
           </Popup>
         </div>
       ) : (
-        "Data Not Available. Please check the name and the id"
+        <div className="text-center h4">
+          Data not available. Please check the name and the id
+        </div>
       )}
     </Header>
   );

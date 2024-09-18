@@ -24,9 +24,11 @@ function ShowTestimonials() {
       let selectedData = allSpacesData?.find((space) => space["spaceID"] == id);
       console.log(selectedData);
 
-      selectedData = selectedData["reviews"]?.filter(
-        (review) => review["isLiked"]
-      );
+      if (selectedData) {
+        selectedData = selectedData["reviews"]?.filter(
+          (review) => review["isLiked"]
+        );
+      }
 
       setLikedReviewsData(selectedData);
     }

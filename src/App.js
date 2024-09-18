@@ -5,6 +5,7 @@ import PrivateRoutes from "./Routing/PrivateRoutes";
 import { privateRoutes, publicRoutes } from "./Routing/Routes";
 import PublicRoutes from "./Routing/PublicRoutes";
 import InputReviews from "./wrapper/input_reviews/InputReviews";
+import ShowTestimonials from "./wrapper/show_testimonials/ShowTestimonials";
 
 function App() {
   return (
@@ -26,8 +27,12 @@ function App() {
           ))}
 
           <Route path="/:id/:name" element={<InputReviews />} />
+          <Route path="/show-testimonials/:id?" element={<ShowTestimonials />} />
 
-          <Route path="*" element={<h2>404 Not Found</h2>} />
+          <Route
+            path="*"
+            element={<p className="text-center h4">404 Not Found</p>}
+          />
         </Routes>
       </Router>
     </AuthProvider>

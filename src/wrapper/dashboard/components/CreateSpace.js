@@ -150,7 +150,7 @@ function CreateSpace({
 
   return (
     <div
-      className="py-12 p1 bg-[#ecf0f5] bg-scroll min-h-[100vh] max-h-full flex items-center"
+      className="py-12 px-4 p1 bg-[#ecf0f5] bg-scroll min-h-[100vh] max-h-full flex items-center"
       style={{
         background:
           "radial-gradient(#d7e0ea 18.75%, transparent 0) 2px 2px / 10px 10px #ecf0f5",
@@ -163,7 +163,7 @@ function CreateSpace({
       }}
     >
       {isLoading && <Loader />}
-      <div className="w-full relative p-16 flex rounded-2xl gap-10 m-auto shadow-xl max-w-[1240px] bg-white">
+      <div className="w-full relative p-16 flex flex-col md:flex-row rounded-2xl gap-10 m-auto shadow-xl max-w-[1240px] bg-white">
         <button
           className="absolute top-8 right-8"
           onClick={() => handleCreateSpaceChange(false)}
@@ -183,7 +183,7 @@ function CreateSpace({
             ></path>
           </svg>
         </button>
-        <div className="w-2/5 flex flex-col gap-8">
+        <div className="w-full md:w-2/5 flex flex-col gap-8">
           <div className="w-full h-fit border px-10 pt-6 pb-12 rounded-2xl flex flex-col gap-6 relative">
             {selectedTestimonialTab === "basic" && (
               <TestimonialPreview spaceData={spaceData} />
@@ -214,8 +214,8 @@ function CreateSpace({
             </div>
           )}
         </div>
-        <div className="w-3/5">
-          <div className="px-12 m-auto">
+        <div className="w-full md:w-3/5">
+          <div className="px-0 md:px-12 m-auto">
             <div className="flex justify-center">
               <div
                 className={`${

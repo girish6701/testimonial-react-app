@@ -92,20 +92,20 @@ function Dashboard() {
                   <p>No space yet, add a new one?</p>
                 </div>
               ) : (
-                <div className="grid grid-cols-3 gap-16">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16">
                   {spacesData?.map((space) => (
                     <div
                       onClick={() => routeToCurrentSpace(space["spaceID"])}
                       className="bg-white shadow-sm hover:shadow-md rounded-lg flex border cursor-pointer"
                     >
-                      <div className="w-1/4 border-r">
+                      <div className="w-40 h-40 border-r">
                         <img
-                          className="w-full"
+                          className="w-full h-full"
                           alt="img"
                           src="https://testimonial.to/static/media/no-message.18de8749.svg"
                         />
                       </div>
-                      <div className="w-3/4 px-8 py-8">
+                      <div className="flex-grow px-8 py-8">
                         <div className="h6 font-medium">
                           {space?.testimonialForm?.spaceName}
                         </div>

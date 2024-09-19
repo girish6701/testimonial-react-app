@@ -69,7 +69,7 @@ function Signup() {
 
   return (
     <Header>
-      <div className="p1 px-10 h-full w-full flex flex-col gap-20 items-center justify-center">
+      <div className="p1 px-10 h-full w-full flex flex-col gap-20 items-center justify-center pb-10">
         {isLoading && <Loader />}
         <div className="font-bold h1">Sign up for free 🤗</div>
         <div className="bg-white p-10 dark:bg-gray-800 shadow rounded-3xl w-[44rem] max-w-full">

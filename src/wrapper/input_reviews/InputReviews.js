@@ -46,7 +46,7 @@ function InputReviews() {
       {isLoading ? (
         <Loader />
       ) : !!spaceData ? (
-        <div className="p1 flex flex-col gap-10 w-[60rem] max-w-full m-auto">
+        <div className="p1 flex flex-col gap-10 w-[66rem] max-w-full m-auto pb-10">
           <div className="m-auto">
             <img
               src="https://testimonial.to/static/media/just-logo.040f4fd2.svg"

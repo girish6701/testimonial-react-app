@@ -31,7 +31,7 @@ function Header({ children, showRightMenu = true }) {
         <Loader />
       ) : (
         <div className="h-[100vh] w-full bg-gradient-to-b from-gray-100 to-white dark:from-gray-900 dark:to-gray-800">
-          <div className="w-full py-8 border-b mb-8">
+          <div className="w-full py-8 border-b mb-8 px-8">
             <div className="m-auto max-w-[1440px] flex items-center justify-between">
               <div onClick={() => navigate("/")} className="cursor-pointer">
                 Testimonial Icon
@@ -46,7 +46,7 @@ function Header({ children, showRightMenu = true }) {
               )}
             </div>
           </div>
-          <div className="w-full m-auto max-w-[1440px]">{children}</div>
+          <div className="w-full m-auto max-w-[1440px] px-8">{children}</div>
         </div>
       )}
     </>

@@ -6,6 +6,12 @@ html {
   font-size: 10px;
 }
 
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 9px;
+  }
+}
+
 body {
   font-family: "Inter", sans-serif;
 }

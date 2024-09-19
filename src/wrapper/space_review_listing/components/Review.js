@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import StarRatings from "../../../util_components/StarRatings";
 
 function Review({ content, likeReviews }) {
-  //   const [isLiked, setIsLiked] = useState(content?.isLiked);
-
   return (
     <div className="p-10 bg-purple-50 rounded-lg flex flex-col gap-8">
       <div className="flex justify-between items-center">
@@ -29,7 +27,6 @@ function Review({ content, likeReviews }) {
         <div
           className="cursor-pointer"
           onClick={() => {
-            // setIsLiked((prevVal) => !prevVal);
             likeReviews(content["id"]);
           }}
         >
@@ -51,7 +48,7 @@ function Review({ content, likeReviews }) {
       </div>
       <StarRatings ratings={content["ratings"]} />
       <div>{content["reviewerComment"]}</div>
-      <div className="flex gap-40">
+      <div className="flex gap-36">
         <div>
           <div className="text-gray-400 font-semibold">Name</div>
           <div>{content["reviewerName"]}</div>

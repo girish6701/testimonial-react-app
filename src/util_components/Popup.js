@@ -9,7 +9,7 @@ function Popup({ children, isActive, setIsActive }) {
     <>
       {isActive && (
         <div className="w-full h-[100vh] z-10 fixed top-0 left-0 flex items-center justify-center bg-gray-100 bg-opacity-50">
-          <div className="bg-white w-[50rem] max-w-full rounded-xl relative">
+          <div className="bg-white w-[50rem] max-w-full rounded-xl relative mx-4">
             <div
               className="absolute -top-12 right-0 cursor-pointer"
               onClick={closePopup}

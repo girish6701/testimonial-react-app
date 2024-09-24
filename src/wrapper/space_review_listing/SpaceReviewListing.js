@@ -84,6 +84,37 @@ function SpaceReviewListing() {
     setSearchedReviews(filteredReviews);
   }, [searchVal]);
 
+  async function handleDeleteSpaces() {
+    setIsLoading(true);
+    const id = spaceData["spaceID"];
+    const spaceRef = doc(db, "spaces", "data");
+    const spaceSnap = await getDoc(spaceRef);
+    const docRef = doc(db, "users_space", user["uid"]);
+    const docSnap = await getDoc(docRef);
+
+    if (spaceSnap.exists()) {
+      let allSpacesData = spaceSnap.data().allSpacesData;
+      let userSpacesData = docSnap.data().spaces;
+
+      let filteredData = allSpacesData?.filter(
+        (space) => space["spaceID"] != id
+      );
+
+      let userFilteredData = userSpacesData?.filter((spaceId) => spaceId != id);
+
+      await updateDoc(spaceRef, {
+        allSpacesData: filteredData,
+      });
+
+      await updateDoc(docRef, {
+        spaces: userFilteredData,
+      });
+      alert("Space deleted successfully");
+      navigate("/dashboard");
+    }
+    setIsLoading(false);
+  }
+
   return (
     <Header>
       {isLoading ? (
@@ -106,11 +137,20 @@ function SpaceReviewListing() {
                 Space Public URL
               </Link>
             </div>
-            <div
-              className="cursor-pointer text-white border rounded-full py-3 px-8 bg-[#567aad] hover:bg-[#4571b0]"
-              onClick={() => navigate(`/dashboard/${id}`)}
-            >
-              Edit Space
+            <div className="flex gap-6 items-center">
+              <div
+                className="cursor-pointer text-white border-2 border-[#567aad] rounded-full py-2 px-8 bg-[#567aad] hover:bg-[#4571b0]"
+                onClick={() => navigate(`/dashboard/${id}`)}
+              >
+                Edit
+              </div>
+
+              <div
+                className="cursor-pointer text-[#567aad] border-2 border-[#567aad] hover:bg-gray-100 rounded-full py-2 px-8 "
+                onClick={() => handleDeleteSpaces()}
+              >
+                Delete
+              </div>
             </div>
           </div>
           <div>

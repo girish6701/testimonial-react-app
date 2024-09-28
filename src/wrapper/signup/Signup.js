@@ -8,6 +8,7 @@ import Loader from "../../util_components/Loader";
 import { signinWithGoogle } from "../../util_components/UtilFunctions";
 import Header from "../../util_components/Header";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Signup() {
   const [loginDetails, setLoginDetails] = useState({
@@ -26,7 +27,7 @@ function Signup() {
   function handleSignupSubmit() {
     for (let key in loginDetails) {
       if (!loginDetails[key]) {
-        alert("Fill all details");
+        toast("Fill all details");
         return;
       }
     }
@@ -54,7 +55,8 @@ function Signup() {
             setIsLoading(false);
           })
           .catch((error) => {
-            alert("Error updating user profile: ", error);
+            toast("Error updating user profile: ", error);
+            setIsLoading(false);
           });
 
         console.log(user);
@@ -63,7 +65,7 @@ function Signup() {
         setIsLoading(false);
         const errorCode = error.code;
         const errorMessage = error.message;
-        alert(errorMessage);
+        toast(errorMessage);
       });
   }
 

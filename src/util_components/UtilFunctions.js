@@ -4,6 +4,7 @@ import {
   getAdditionalUserInfo,
   signInWithPopup,
 } from "firebase/auth";
+import { toast } from "react-toastify";
 
 export function signinWithGoogle() {
   const auth = getAuth();
@@ -31,6 +32,6 @@ export function signinWithGoogle() {
       // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error);
       // ...
-      alert(errorMessage);
+      toast(errorMessage);
     });
 }

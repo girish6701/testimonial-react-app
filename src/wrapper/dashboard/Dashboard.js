@@ -7,6 +7,7 @@ import { doc, getDoc } from "firebase/firestore";
 import Loader from "../../util_components/Loader";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../util_components/AuthContext";
+import { toast } from "react-toastify";
 
 function Dashboard() {
   const { id } = useParams();
@@ -43,7 +44,7 @@ function Dashboard() {
       if (!!id) {
         let editSpace = allSpaces?.find((space) => space["spaceID"] == id);
         if (!editSpace) {
-          alert("ID is wrong");
+          toast("ID is wrong");
           navigate("/dashboard");
           handleCreateSpaceChange(false);
         } else {

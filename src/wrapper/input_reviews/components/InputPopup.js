@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import StarRatings from "../../../util_components/StarRatings";
 import Loader from "../../../util_components/Loader";
 import { useAuth } from "../../../util_components/AuthContext";
+import { toast } from "react-toastify";
 
 function InputPopup({ spaceData, showPopup, setShowPopup, setThankyouPopup }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -50,7 +51,7 @@ function InputPopup({ spaceData, showPopup, setShowPopup, setThankyouPopup }) {
       await updateDoc(spaceRef, {
         allSpacesData: currentValue,
       });
-      alert("Review Submitted Successfully");
+      toast("Review Submitted Successfully");
     }
 
     setShowPopup(false);

@@ -5,6 +5,7 @@ import { getAuth, signOut } from "firebase/auth";
 import { useAuth } from "./AuthContext";
 import Loader from "./Loader";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Header({ children, showRightMenu = true }) {
   const { user } = useAuth();
@@ -17,10 +18,10 @@ function Header({ children, showRightMenu = true }) {
     setIsLoading(true);
     signOut(auth)
       .then(() => {
-        alert("User signed out");
+        toast("User signed out")
       })
       .catch((error) => {
-        alert("Error signing out: ", error);
+        toast("Error signing out: ", error)
       });
     setIsLoading(false);
   }

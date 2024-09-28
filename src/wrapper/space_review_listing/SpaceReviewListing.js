@@ -6,6 +6,7 @@ import Header from "../../util_components/Header";
 import Loader from "../../util_components/Loader";
 import Review from "./components/Review";
 import { useAuth } from "../../util_components/AuthContext";
+import { toast } from "react-toastify";
 
 function SpaceReviewListing() {
   const { id } = useParams();
@@ -109,7 +110,7 @@ function SpaceReviewListing() {
       await updateDoc(docRef, {
         spaces: userFilteredData,
       });
-      alert("Space deleted successfully");
+      toast("Space deleted successfully");
       navigate("/dashboard");
     }
     setIsLoading(false);

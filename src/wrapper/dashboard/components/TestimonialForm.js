@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 
 function TestimonialForm({
   spaceData,
@@ -19,7 +20,7 @@ function TestimonialForm({
 
   function addNewQuestions() {
     if (spaceData["questionsList"].length === 5) {
-      alert("Cannot add more than 5");
+      toast("Cannot add more than 5");
       return;
     }
 

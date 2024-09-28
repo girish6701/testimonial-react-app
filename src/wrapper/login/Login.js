@@ -4,6 +4,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { signinWithGoogle } from "../../util_components/UtilFunctions";
 import Header from "../../util_components/Header";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Login() {
   const [loginDetails, setLoginDetails] = useState({
@@ -21,7 +22,7 @@ function Login() {
   function handleLoginSubmit() {
     for (let key in loginDetails) {
       if (!loginDetails[key]) {
-        alert("Fill all details");
+        toast("Fill all details");
         return;
       }
     }
@@ -40,13 +41,14 @@ function Login() {
         // Signed In
         const user = userCredential.user;
         console.log(user);
+        setIsLoading(false);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        alert(errorMessage);
+        toast(errorMessage);
+        setIsLoading(false);
       });
-    setIsLoading(false);
   }
 
   return (

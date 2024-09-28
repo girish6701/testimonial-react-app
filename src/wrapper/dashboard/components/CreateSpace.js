@@ -10,6 +10,7 @@ import Loader from "../../../util_components/Loader";
 import { v4 as uuidv4 } from "uuid";
 import { useAuth } from "../../../util_components/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function CreateSpace({
   handleCreateSpaceChange,
@@ -81,7 +82,7 @@ function CreateSpace({
     let isValid2 = checkDataValidity(appreciateData);
 
     if (isValid1 === false || isValid2 === false) {
-      alert("Please fill all details");
+      toast("Please fill all details");
       return;
     }
 
@@ -138,12 +139,12 @@ function CreateSpace({
           ],
         });
       }
-      alert("Space create successfully :)");
+      toast("Space create successfully :)");
       handleCreateSpaceChange(false);
       navigate("/dashboard");
       getSpacesData();
     } catch (e) {
-      alert(e);
+      toast(e);
     }
     setIsLoading(false);
   }
@@ -166,7 +167,10 @@ function CreateSpace({
       <div className="w-full relative p-16 flex flex-col md:flex-row rounded-2xl gap-10 m-auto shadow-xl max-w-[1240px] bg-white">
         <button
           className="absolute top-8 right-8"
-          onClick={() => handleCreateSpaceChange(false)}
+          onClick={() => {
+            handleCreateSpaceChange(false);
+            navigate("/dashboard");
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
